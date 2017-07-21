@@ -9,11 +9,14 @@ import ceylon.language.meta {
     type
 }
 
+"Class for licensedUnder annotation."
+shared final sealed annotation class LicensedUnderAnnotation(description)
+        satisfies OptionalAnnotation<LicensedUnderAnnotation> {
+    "License name, url, etc."
+    shared String description;
+}
 
-shared final sealed annotation class LicensedUnderAnnotation(
-        shared String description)
-        satisfies OptionalAnnotation<LicensedUnderAnnotation> {}
-
+"Like [[license]] but not limited to modules."
 shared annotation LicensedUnderAnnotation licensedUnder(String description)
         => LicensedUnderAnnotation(description);
 

@@ -8,6 +8,7 @@ import ceylon.json {
 }
 
 "Parse #t, #T, #f, #F, consuming any initial whitespace."
+throws(`class ParseException`, "taking values other than #t or #f")
 shared Boolean parseBool(Tokenizer tokenizer) {
     tokenizer.eatSpacesUntil('#');
     switch (character = tokenizer.character())
@@ -110,6 +111,7 @@ shared class Parser(tokenizer, visitor) {
         visitor.onEndArray();
     }
 
+    "Parses s-expression values."
     throws(`class ParseException`,
         "If the specified string cannot be parsed")
     shared void parseValue() {
@@ -157,6 +159,8 @@ shared class Parser(tokenizer, visitor) {
         }
     }
 
+    "Parses s-expressions."
+    throws(`class ParseException`, "encountering unexpected extra characters")
     shared void parse() {
         parseValue();
         tokenizer.eatSpaces();
